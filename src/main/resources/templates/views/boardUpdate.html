@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>글 수정하기</title>
+</head>
+<body>
+	<h1>게시글 상세보기</h1>
+	<form>
+		<button>수정하기</button>
+		<table>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" id="title" th:value="${board.title}">
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" name="writer" id="writer" th:value="${board.writer}" >
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" id="content" th:text="${board.content}"></textarea>
+				</td>
+			</tr>
+		</table>
+	</ㄹ>
+
+</body>
+</html>

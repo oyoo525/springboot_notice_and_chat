@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>글 상세보기</title>
+</head>
+<body>
+	<h1>게시글 상세보기</h1>
+	<div>
+		<button>삭제하기</button>
+		<button th:onClick="@{|location.href='boardUpdate?no=${board.no}'|}">수정하기</button>
+		<table>
+			<tr>
+				<td colspan="2" th:text="${board.regDate}"></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" name="title" id="title" th:value="${board.title}" readonly>
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" name="writer" id="writer" th:value="${board.writer}" readonly>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" id="content" th:text="${board.content}" readonly></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>
