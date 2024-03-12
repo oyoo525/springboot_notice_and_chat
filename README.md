@@ -12,7 +12,7 @@
 - Springboot 4.21.0.RELEASE
 - Apache Tomact 9.0.86
 
-## 사용언어
+### 사용언어
 Java, Html, Javascript, JQuery, MySQL
 
 ### 진행상황
