@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/message.js"></script>
+	<title>Document</title>
+</head>
+<body>
+	<h1>메세지보내기</h1>
+	<button onclick="location.href='messageForm'">메세지보내기</button>
+	<button onclick="location.href='receivedMessage'">받은메세지</button>
+	<button onclick="location.href='sentMessage'">보낸메세지</button>
+
+	<form name="sendMessageForm" id="sendMessageForm" action="sendMessage" method="post">
+		<table>
+			<tr>
+				<th>보내는 사람</th>
+				<td>
+					<input type="text" name="fromId" id="fromId" th:value="${loginId}" readonly>
+				</td>
+			</tr>
+			<tr>
+				<th>받는 사람</th>
+				<td>
+					<input type="text" name="toId" id="sendMessageFormToId">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea rows="10" name="content" id="content"></textarea>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="전송">
+	</form>
+</body>
+</html>

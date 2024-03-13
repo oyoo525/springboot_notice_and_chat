@@ -8,9 +8,10 @@
 <body>
 	<h1>시작페이지</h1>
 	<button onclick="location.href='join'">가입하기</button>
-	<button onclick="location.href='login'">로그인</button>
+	<button th:onclick="${login} ? |location.href='logout'| : |location.href='login'|"
+					th:text="${login} ? '로그아웃' : '로그인'"></button>
 	<button onclick="location.href='writeBoard'">글쓰기</button>
-
+	<button onclick="location.href='messageForm'">메세지보내기</button>
 	<table>
 		<thead>
 			<tr>

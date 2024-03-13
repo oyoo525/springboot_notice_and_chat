@@ -3,12 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>글 상세보기</title>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/board.js"></script>
+	<title>게시글 상세보기</title>
 </head>
 <body>
 	<h1>게시글 상세보기</h1>
 	<div>
-		<button>삭제하기</button>
+		<input type="hidden" name="no" id="no" th:value="${board.no}">
+		<button onclick="location.href='/'">목록가기</button>
+		<button id="boardDeleteBtn">삭제하기</button>
 		<button th:onClick="@{|location.href='boardUpdate?no=${board.no}'|}">수정하기</button>
 		<table>
 			<tr>
@@ -33,6 +37,37 @@
 				</td>
 			</tr>
 		</table>
+
+		<form name="boardReplyWriteForm" id="boardReplyWriteForm" action="insertReply" method="post">
+			<input type="hidden" name="boardNo" id="boardNo" th:value="${board.no}">
+			<input type="hidden" name="id" id="id" th:value="${loginId}">
+			<input type="hidden" name="replyNo" id="replyNo">
+			<table>
+				<tr>
+					<td>
+						<textarea name="reply" id="reply" rows="3"></textarea>
+					</td>
+					<td>
+						<input type="submit" value="댓글달기">
+					</td>
+				</tr>
+			</table>
+		</form>
+
+		<div>
+			<table>
+				<tr th:each="reply : ${replyList}">
+					<th th:text="${reply.id}"></th>
+					<td th:text="${reply.reply}"></td>
+					<td>
+						<button class="replyUpdateBtn" th:data-no="${reply.no}">수정</button>
+						<button class="replyDeleteBtn" th:data-no="${reply.no}">삭제</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
 	</div>
 
 </body>

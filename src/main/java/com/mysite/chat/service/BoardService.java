@@ -29,8 +29,15 @@ public class BoardService {
 	public Board getBoard(int no) {
 		Optional<Board> optionalBoard = boardRepository.findById(no);
 		Board board = optionalBoard.orElse(new Board());
-		
 		return board;
+	}
+	
+	public void updateBoard(int no, String title, String writer, String content) {
+		boardRepository.updateBoard(no, title, writer, content);
+	}
+	
+	public int deleteBoard(int no) {
+		return boardRepository.deleteByNo(no);
 	}
 	
 	

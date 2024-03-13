@@ -26,6 +26,19 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 			@Param("writer") String writer, @Param("content") String content);
 	
 	
+	@Modifying
+	@Transactional
+	@Query(value="UPDATE springboot_chat_board  "
+			+ "SET title = :title, writer = :writer, content = :content "
+			+ "WHERE no = :no", nativeQuery = true)
+	public abstract void updateBoard(@Param("no") int no, @Param("title") String title, 
+			@Param("writer") String writer, @Param("content") String content);
+	
+	@Modifying
+	@Transactional
+	@Query(value="DELETE Board b WHERE b.no = :no")
+	public abstract int deleteByNo(@Param("no") int no);
+	
 	
 	
 }

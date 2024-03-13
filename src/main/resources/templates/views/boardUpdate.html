@@ -3,11 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="/js/board.js"></script>
 	<title>글 수정하기</title>
 </head>
 <body>
-	<h1>게시글 상세보기</h1>
-	<form>
+	<h1>게시글 수정하기</h1>
+	<form name="boardUpdateForm" id="boardUpdateForm" action="boardUpdate" method="post">
+		<input type="hidden" name="no" id="no" th:value="${board.no}">
 		<button>수정하기</button>
 		<table>
 			<tr>
@@ -19,7 +22,7 @@
 			<tr>
 				<th>작성자</th>
 				<td>
-					<input type="text" name="writer" id="writer" th:value="${board.writer}" >
+					<input type="text" name="writer" id="writer" th:value="${board.writer}" readonly>
 				</td>
 			</tr>
 			<tr>

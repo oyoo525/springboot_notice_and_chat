@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>받은 메세지</h1>
+	<button onclick="location.href='messageForm'">메세지보내기</button>
+	<button onclick="location.href='receivedMessage'">받은메세지</button>
+	<button onclick="location.href='sentMessage'">보낸메세지</button>
+
+	<table>
+		<thead>
+			<tr>
+				<th>보낸사람</th>
+				<th>메세지</th>
+				<th>날짜</th>
+				<th>읽음여부</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="m : ${messageList}">
+				<td th:text="${m.fromId}">보낸사람</td>
+				<td th:text="${m.content}">메세지</td>
+				<td th:text="${m.regDate}">날짜</td>
+				<td th:text="${m.readMark}">읽음여부</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
