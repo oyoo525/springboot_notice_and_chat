@@ -3,18 +3,57 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/globalStyle.css">
 	<title>Document</title>
+	<style>
+		body {
+			padding: 14px;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 48px;
+		}
+
+		.right_box {
+			text-align: end;
+			margin-right: 12px;
+			margin-bottom: 12px;
+		}
+
+		.center_box {
+			text-align: center;
+		}
+
+		input, textarea {
+			width: 100%;
+		}
+
+		input#inputChat {
+			width: 90%;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
-	<h1>시작페이지</h1>
-	<button onclick="location.href='join'">가입하기</button>
-	<button th:onclick="${login} ? |location.href='logout'| : |location.href='login'|"
-					th:text="${login} ? '로그아웃' : '로그인'"></button>
-	<button onclick="location.href='writeBoard'">글쓰기</button>
-	<button onclick="location.href='messageForm'">메세지보내기</button>
-	<button onclick="location.href='chatList'">채팅하기</button>
-	<table>
-		<thead>
+	<button onclick="location.href='/'" class="btn btn-primary">메인화면으로 이동</button>
+	<h1>HOME</h1>
+	<div class="right_box">	
+		<button onclick="location.href='join'" class="btn btn-success">가입하기</button>
+		<button th:onclick="${login} ? |location.href='logout'| : |location.href='login'|"
+		th:text="${login} ? '로그아웃' : '로그인'" class="btn btn-success"></button>
+		<button onclick="location.href='writeBoard'" class="btn btn-outline-success">글쓰기</button>
+		<button onclick="location.href='messageForm'" class="btn btn-outline-success">메세지보내기</button>
+		<button onclick="location.href='chatList'" class="btn btn-outline-success">채팅하기</button>
+	</div>
+	<table class="table table-hover">
+		<thead class="table-success">
 			<tr>
 				<th>NO</th>
 				<th>TITLE</th>
@@ -25,14 +64,12 @@
 		</thead>
 		<tbody>
 			<tr th:each="board : ${boardList}" th:onclick="@{|location.href='boardDetail?no=${board.no}'|}">
-				<td th:text="${board.no}"></td>
-				<td th:text="${board.title}"></td>
-				<td th:text="${board.writer}"></td>
-				<td th:text="${board.thumb}"></td>
-				<td th:text="${board.views}"></td>
+				<td th:text="${board.no}">NO</td>
+				<td th:text="${board.title}">TITLE</td>
+				<td th:text="${board.writer}">WRITER</td>
+				<td th:text="${board.thumb}">LIKE</td>
+				<td th:text="${board.views}">VIEW</td>
 			</tr>
-
-
 		</tbody>
 	</table>
 </body>

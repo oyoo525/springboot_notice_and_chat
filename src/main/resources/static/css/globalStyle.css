@@ -1,0 +1,31 @@
+body {
+	padding: 14px;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 48px;
+}
+
+.right_box {
+	text-align: end;
+	margin-right: 12px;
+	margin-bottom: 12px;
+}
+
+.center_box {
+	text-align: center;
+}
+
+input, textarea {
+	width: 100%;
+}
+
+input#inputChat {
+	width: 90%;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}

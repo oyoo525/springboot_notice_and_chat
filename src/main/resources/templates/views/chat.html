@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 	<script src="/js/chat.js"></script>
-	<title>채팅목록</title>
+	<title>채팅방</title>
 	<style>
 		body {
 			padding: 14px;
@@ -76,22 +76,6 @@
 </head>
 <body>
 	<button onclick="location.href='/'" class="btn btn-primary">메인화면으로 이동</button>
-	<div id="chat-list">
-		<input type="hidden" name="loginId" id="loginId" th:value="${loginId}">
-		<h1>채팅목록</h1>
-		<div class="right_box">
-			<button id="makeChat" class="btn btn-outline-success" data-bs-toggle="modal" 
-				data-bs-target="#exampleModal">채팅방 만들기</button>
-		</div>
-		<table id="chatroom-list-container">
-			<tr>
-				<th>어서오세요</th>
-				<td>
-					<button class="intoChatRoom btn btn-outline-secondary">입장하기</button>
-				</td>
-			</tr>
-		</table>
-	</div>
 	<div id="chat-room" style="display: none;">
 		<h1 id="chat-room-name"></h1>
 		<div class="right_box">
@@ -106,31 +90,5 @@
 			<button type="submit" class="btn btn-outline-primary">보내기</button>
 		</form>
 	</div>
-
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">채팅방 만들기</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<form id="makeChatRoom" action="">
-						<div>
-							<label>이름</label>
-							<input type="text" name="roomName" id="roomName">
-						</div>
-						<div class="right_box">
-							<button type="submit">만들기</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
 </body>
 </html>

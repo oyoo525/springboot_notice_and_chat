@@ -2,6 +2,12 @@ $(function() {
 
 	let stompClient = null;
 	let userName = null;
+	let roomNo = null
+
+	let colors = [
+    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
+    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+	];
 
 	function connect() {
 		if(userName) {
@@ -12,8 +18,10 @@ $(function() {
 	}
 
 	function onConneted() {
-		stompClient.subscribe("/topic/public", onMessageReceived);
-		stompClient.send("/app/chat.register", {}, JSON.stringify({sender : userName, type : 'JOIN'}))
+		roomNo = 1234;
+
+		stompClient.subscribe("/topic/" + roomNo, onMessageReceived);
+		stompClient.send("/app/chat.register/" + roomNo , {}, JSON.stringify({sender : userName, type : 'JOIN', roomNo : roomNo}))
 		let connecting = document.querySelector("#connecting");
 		connecting.style.display = "none";
 	}
@@ -30,28 +38,34 @@ $(function() {
 			let chatMessage = {
 						sender : userName,
 						content : inputChat,
-						type : "CHAT"
+						type : "CHAT",
+						roomNo : roomNo
 			}
-			stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
+			stompClient.send("/app/chat.send/" + roomNo, {}, JSON.stringify(chatMessage));
 			$("#inputChat").val("");
 		}
 	}
 
 	function onMessageReceived(payload) {
-		console.log("onMessageReceived 함수 시작");
 		let message = JSON.parse(payload.body);
 
 		let chatArea = document.querySelector("#chatArea");
 		let messageElement = document.createElement("li");
 
 		if(message.type == 'JOIN') {
+			messageElement.classList.add('chat-message');
 			message.content = message.sender + "님이 입장하셨습니다.";
 		} else if(message.type == "LEAVE") {
+			messageElement.classList.add('chat-message');
 			message.content = message.sender + "님이 퇴장하셨습니다.";
 		} else {
+			messageElement.classList.add('chat-message');
+
 			let profileElement = document.createElement("i");
 			let profile = document.createTextNode(message.sender[0]);
 			profileElement.appendChild(profile);
+			// profileElement.classList.add('bg-primary');
+			profileElement.style.backgroundColor = getAvatarColor(message.sender);
 			messageElement.appendChild(profileElement);
 
 			let userNameElement = document.createElement("span");
@@ -76,15 +90,27 @@ $(function() {
 						sender : userName,
 						type : "LEAVE"
 			}
-			stompClient.send("/app/chat.register", {}, JSON.stringify(chatMessage));
+			stompClient.send("/app/chat.register/" + roomNo , {}, JSON.stringify(chatMessage));
 			stompClient.disconnect();
 		}
 	}
+
+	function getAvatarColor(messageSender) {
+    var hash = 0;
+    for (var i = 0; i < messageSender.length; i++) {
+        hash = 31 * hash + messageSender.charCodeAt(i);
+    }
+
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+}
 
 
 	$(".intoChatRoom").on("click", function() {
 		userName = $("#loginId").val();
 		connect();
+		$("#chat-room").css("display", "block");
+		$("#chat-list").css("display", "none");
 	})
 
 	$("#inputChatForm").on("submit", function(event) {
@@ -94,7 +120,8 @@ $(function() {
 
 	$("#closeChat").on("click", function() {
 		disconnect();
-
+		$("#chat-room").css("display", "none");
+		$("#chat-list").css("display", "block");
 	})
 
 

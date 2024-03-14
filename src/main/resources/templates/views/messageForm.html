@@ -3,26 +3,65 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/globalStyle.css">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/message.js"></script>
 	<title>Document</title>
+	<style>
+		body {
+			padding: 14px;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 48px;
+		}
+
+		.right_box {
+			text-align: end;
+			margin-right: 12px;
+			margin-bottom: 12px;
+		}
+
+		.center_box {
+			text-align: center;
+		}
+
+		input, textarea {
+			width: 100%;
+		}
+
+		input#inputChat {
+			width: 90%;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
+	<button onclick="location.href='/'" class="btn btn-primary">메인화면으로 이동</button>
 	<h1>메세지보내기</h1>
-	<button onclick="location.href='messageForm'">메세지보내기</button>
-	<button onclick="location.href='receivedMessage'">받은메세지</button>
-	<button onclick="location.href='sentMessage'">보낸메세지</button>
+	<div class="right_box">
+		<button onclick="location.href='messageForm'" class="btn btn-outline-success">메세지보내기</button>
+		<button onclick="location.href='receivedMessage'" class="btn btn-outline-success">받은메세지</button>
+		<button onclick="location.href='sentMessage'" class="btn btn-outline-success">보낸메세지</button>
+	</div>
 
 	<form name="sendMessageForm" id="sendMessageForm" action="sendMessage" method="post">
-		<table>
+		<table class="table">
 			<tr>
-				<th>보내는 사람</th>
+				<th class="table-success">보내는 사람</th>
 				<td>
 					<input type="text" name="fromId" id="fromId" th:value="${loginId}" readonly>
 				</td>
 			</tr>
 			<tr>
-				<th>받는 사람</th>
+				<th class="table-success">받는 사람</th>
 				<td>
 					<input type="text" name="toId" id="sendMessageFormToId">
 				</td>
@@ -33,7 +72,9 @@
 				</td>
 			</tr>
 		</table>
-		<input type="submit" value="전송">
+		<div class="center_box">
+			<button type="submit" class="btn btn-success">전송</button>
+		</div>
 	</form>
 </body>
 </html>

@@ -3,35 +3,74 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/globalStyle.css">
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script src="/js/board.js"></script>
 	<title>게시글 상세보기</title>
+	<style>
+		body {
+			padding: 14px;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 48px;
+		}
+
+		.right_box {
+			text-align: end;
+			margin-right: 12px;
+			margin-bottom: 12px;
+		}
+
+		.center_box {
+			text-align: center;
+		}
+
+		input, textarea {
+			width: 100%;
+		}
+
+		input#inputChat {
+			width: 90%;
+		}
+
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
 </head>
 <body>
+	<button onclick="location.href='/'" class="btn btn-primary">메인화면으로 이동</button>
 	<h1>게시글 상세보기</h1>
 	<div>
 		<input type="hidden" name="no" id="no" th:value="${board.no}">
-		<button onclick="location.href='/'">목록가기</button>
-		<button id="boardDeleteBtn">삭제하기</button>
-		<button th:onClick="@{|location.href='boardUpdate?no=${board.no}'|}">수정하기</button>
-		<table>
+		<div class="right_box">
+			<button onclick="location.href='/'" class="btn btn-primary">목록가기</button>
+			<button id="boardDeleteBtn" class="btn btn-danger">삭제하기</button>
+			<button th:onClick="@{|location.href='boardUpdate?no=${board.no}'|}" class="btn btn-warning">수정하기</button>
+		</div>
+			<table class="table">
 			<tr>
 				<td colspan="2" th:text="${board.regDate}"></td>
 			</tr>
 			<tr>
-				<th>제목</th>
+				<th class="table-success">제목</th>
 				<td>
 					<input type="text" name="title" id="title" th:value="${board.title}" readonly>
 				</td>
 			</tr>
 			<tr>
-				<th>작성자</th>
+				<th class="table-success">작성자</th>
 				<td>
 					<input type="text" name="writer" id="writer" th:value="${board.writer}" readonly>
 				</td>
 			</tr>
 			<tr>
-				<th>내용</th>
+				<th class="table-success">내용</th>
 				<td>
 					<textarea name="content" id="content" th:text="${board.content}" readonly></textarea>
 				</td>
@@ -42,26 +81,26 @@
 			<input type="hidden" name="boardNo" id="boardNo" th:value="${board.no}">
 			<input type="hidden" name="id" id="id" th:value="${loginId}">
 			<input type="hidden" name="replyNo" id="replyNo">
-			<table>
+			<table class="table">
 				<tr>
 					<td>
 						<textarea name="reply" id="reply" rows="3"></textarea>
 					</td>
 					<td>
-						<input type="submit" value="댓글달기">
+						<button type="submit" class="btn btn-success">댓글달기</button>
 					</td>
 				</tr>
 			</table>
 		</form>
 
 		<div>
-			<table>
+			<table class="table table-striped">
 				<tr th:each="reply : ${replyList}">
 					<th th:text="${reply.id}"></th>
 					<td th:text="${reply.reply}"></td>
 					<td>
-						<button class="replyUpdateBtn" th:data-no="${reply.no}">수정</button>
-						<button class="replyDeleteBtn" th:data-no="${reply.no}">삭제</button>
+						<button th:data-no="${reply.no}" class="replyUpdateBtn btn btn-warning">수정</button>
+						<button th:data-no="${reply.no}" class="replyDeleteBtn btn btn-danger">삭제</button>
 					</td>
 				</tr>
 			</table>
