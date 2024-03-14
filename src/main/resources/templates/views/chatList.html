@@ -84,10 +84,10 @@
 				data-bs-target="#exampleModal">채팅방 만들기</button>
 		</div>
 		<table id="chatroom-list-container">
-			<tr>
-				<th>어서오세요</th>
+			<tr th:each="chat : ${chatList}">
+				<th th:text="${chat.roonName}">채팅방이름</th>
 				<td>
-					<button class="intoChatRoom btn btn-outline-secondary">입장하기</button>
+					<button class="intoChatRoom btn btn-outline-secondary" th:data-uuid="${chat.uuid}">입장하기</button>
 				</td>
 			</tr>
 		</table>
@@ -108,17 +108,17 @@
 	</div>
 
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="exampleModalLabel">채팅방 만들기</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form id="makeChatRoom" action="">
+					<form id="makeChatRoom" action="chat" method="post">
 						<div>
 							<label>이름</label>
-							<input type="text" name="roomName" id="roomName">
+							<input type="text" name="makeChatRoomName" id="makeChatRoomName">
 						</div>
 						<div class="right_box">
 							<button type="submit">만들기</button>

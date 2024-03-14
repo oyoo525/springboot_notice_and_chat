@@ -2,12 +2,21 @@ $(function() {
 
 	let stompClient = null;
 	let userName = null;
-	let roomNo = null
+	let uuid = "";
 
 	let colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 	];
+
+	$("#makeChatRoom").on("submit", function() {
+		if($("#makeChatRoomName").val().trim() <= 0) {
+			alert("방 이름을 적어주세요.");
+			return false;
+		}
+	})
+
+
 
 	function connect() {
 		if(userName) {
@@ -18,12 +27,8 @@ $(function() {
 	}
 
 	function onConneted() {
-		roomNo = 1234;
-
-		stompClient.subscribe("/topic/" + roomNo, onMessageReceived);
-		stompClient.send("/app/chat.register/" + roomNo , {}, JSON.stringify({sender : userName, type : 'JOIN', roomNo : roomNo}))
-		let connecting = document.querySelector("#connecting");
-		connecting.style.display = "none";
+		stompClient.subscribe("/topic/" + uuid, onMessageReceived);
+		stompClient.send("/app/chat.register/" + uuid , {}, JSON.stringify({sender : userName, type : 'JOIN', uuid : uuid}))
 	}
 
 	function onError() {
@@ -39,9 +44,9 @@ $(function() {
 						sender : userName,
 						content : inputChat,
 						type : "CHAT",
-						roomNo : roomNo
+						uuid : uuid
 			}
-			stompClient.send("/app/chat.send/" + roomNo, {}, JSON.stringify(chatMessage));
+			stompClient.send("/app/chat.send/" + uuid, {}, JSON.stringify(chatMessage));
 			$("#inputChat").val("");
 		}
 	}
@@ -90,7 +95,7 @@ $(function() {
 						sender : userName,
 						type : "LEAVE"
 			}
-			stompClient.send("/app/chat.register/" + roomNo , {}, JSON.stringify(chatMessage));
+			stompClient.send("/app/chat.register/" + uuid , {}, JSON.stringify(chatMessage));
 			stompClient.disconnect();
 		}
 	}
@@ -108,9 +113,12 @@ $(function() {
 
 	$(".intoChatRoom").on("click", function() {
 		userName = $("#loginId").val();
+		uuid = $(this).data("uuid");
 		connect();
 		$("#chat-room").css("display", "block");
 		$("#chat-list").css("display", "none");
+
+
 	})
 
 	$("#inputChatForm").on("submit", function(event) {
@@ -122,6 +130,8 @@ $(function() {
 		disconnect();
 		$("#chat-room").css("display", "none");
 		$("#chat-list").css("display", "block");
+		$("#chatArea").text("");
+	
 	})
 
 
