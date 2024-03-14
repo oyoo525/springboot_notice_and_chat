@@ -17,17 +17,17 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSocketMessageBroker
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
+	@Override
+	public void registerStompEndpoints(StompEndpointRegistry registry) {
+		registry.addEndpoint("/sehwaChat").withSockJS();
+	}
+	
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
     	registry.enableSimpleBroker("/topic");
-    	registry.setApplicationDestinationPrefixes("app");
+    	registry.setApplicationDestinationPrefixes("/app");
     }
 
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-    	registry.addEndpoint("/gs-guide-websocket");
-    }
-    
     
     
 }

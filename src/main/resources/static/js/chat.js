@@ -1,77 +1,113 @@
-$(document).ready(function(){
+$(function() {
 
-	const username = [[${#authentication.principal.username}]];
+	let stompClient = null;
+	let userName = null;
 
-	$("#disconn").on("click", (e) => {
-			disconnect();
+	function connect() {
+		if(userName) {
+			let socket = new SockJS('/sehwaChat');
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, onConneted, onError);
+		}
+	}
+
+	function onConneted() {
+		stompClient.subscribe("/topic/public", onMessageReceived);
+		stompClient.send("/app/chat.register", {}, JSON.stringify({sender : userName, type : 'JOIN'}))
+		let connecting = document.querySelector("#connecting");
+		connecting.style.display = "none";
+	}
+
+	function onError() {
+		let connecting = document.querySelector("#connecting");
+		connecting.textContent = "서버 연결에 실패하였습니다. 잠시 후 다시 시도해주세요.";
+		connecting.style.color = "red";
+	}
+
+	function send(event) {
+		let inputChat = $("#inputChat").val();
+		if(inputChat.length > 0 && stompClient) {
+			let chatMessage = {
+						sender : userName,
+						content : inputChat,
+						type : "CHAT"
+			}
+			stompClient.send("/app/chat.send", {}, JSON.stringify(chatMessage));
+			$("#inputChat").val("");
+		}
+	}
+
+	function onMessageReceived(payload) {
+		console.log("onMessageReceived 함수 시작");
+		let message = JSON.parse(payload.body);
+
+		let chatArea = document.querySelector("#chatArea");
+		let messageElement = document.createElement("li");
+
+		if(message.type == 'JOIN') {
+			message.content = message.sender + "님이 입장하셨습니다.";
+		} else if(message.type == "LEAVE") {
+			message.content = message.sender + "님이 퇴장하셨습니다.";
+		} else {
+			let profileElement = document.createElement("i");
+			let profile = document.createTextNode(message.sender[0]);
+			profileElement.appendChild(profile);
+			messageElement.appendChild(profileElement);
+
+			let userNameElement = document.createElement("span");
+			let userNameText = document.createTextNode(message.sender);
+			userNameElement.appendChild(userNameText);
+			messageElement.appendChild(userNameElement);
+		}
+
+		let textElement = document.createElement("p");
+		let messageText = document.createTextNode(message.content);
+		textElement.appendChild(messageText);
+		messageElement.appendChild(textElement);
+
+		chatArea.appendChild(messageElement);
+
+		chatArea.scrollTop = chatArea.scrollHeight;
+	}
+
+	function disconnect() {
+		if(stompClient) {
+			let chatMessage = {
+						sender : userName,
+						type : "LEAVE"
+			}
+			stompClient.send("/app/chat.register", {}, JSON.stringify(chatMessage));
+			stompClient.disconnect();
+		}
+	}
+
+
+	$(".intoChatRoom").on("click", function() {
+		userName = $("#loginId").val();
+		connect();
 	})
 
-	$("#button-send").on("click", (e) => {
-			send();
+	$("#inputChatForm").on("submit", function(event) {
+		event.preventDefault();
+		send();
 	});
 
-	const websocket = new WebSocket("ws://localhost:8080/ws/chat");
+	$("#closeChat").on("click", function() {
+		disconnect();
 
-	websocket.onmessage = onMessage;
-	websocket.onopen = onOpen;
-	websocket.onclose = onClose;
-
-	function send(){
-
-			let msg = document.getElementById("msg");
-
-			console.log(username + ":" + msg.value);
-			websocket.send(username + ":" + msg.value);
-			msg.value = '';
-	}
-
-	//채팅창에서 나갔을 때
-	function onClose(evt) {
-			var str = username + ": 님이 방을 나가셨습니다.";
-			websocket.send(str);
-	}
-
-	//채팅창에 들어왔을 때
-	function onOpen(evt) {
-			var str = username + ": 님이 입장하셨습니다.";
-			websocket.send(str);
-	}
-
-	function onMessage(msg) {
-			var data = msg.data;
-			var sessionId = null;
-			//데이터를 보낸 사람
-			var message = null;
-			var arr = data.split(":");
-
-			for(var i=0; i<arr.length; i++){
-					console.log('arr[' + i + ']: ' + arr[i]);
-			}
-
-			var cur_session = username;
-
-			//현재 세션에 로그인 한 사람
-			console.log("cur_session : " + cur_session);
-			sessionId = arr[0];
-			message = arr[1];
-
-			console.log("sessionID : " + sessionId);
-			console.log("cur_session : " + cur_session);
-
-			//로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-			if(sessionId == cur_session){
-					var str = "<div class='col-6'>";
-					str += "<div class='alert alert-secondary'>";
-					str += "<b>" + sessionId + " : " + message + "</b>";
-					str += "</div></div>";
-					$("#msgArea").append(str);
-			}
-			else{
-					var str = "<div class='col-6'>";
-					str += "<div class='alert alert-warning'>";
-					str += "<b>" + sessionId + " : " + message + "</b>";
-					str += "</div></div>";
-					$("#msgArea").append(str);
-			}
-	}
 	})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})

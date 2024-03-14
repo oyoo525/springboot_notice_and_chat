@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script src="/js/chat.js"></script>
+	<title>채팅목록</title>
+</head>
+<body style="display: flex;">
+	<div id="chat-list" style="width: 50%;">
+		<input type="text" name="loginId" id="loginId" th:value="${loginId}">
+		<h1>채팅목록</h1>
+		<button id="makeChat">채팅방 만들기</button>
+		<ul id="chatroom-list-container">
+			<li>
+				<span>어서오세요</span>
+				<button class="intoChatRoom">입장하기</button>
+			</li>
+		</ul>
+	</div>
+	<div id="chat-room" style="width: 50%;">
+		<h1 id="chat-room-name"></h1>
+		<button id="closeChat">나가기</button>
+		<div id="connecting">서버 연결중...</div>
+		<ul id="chatArea">
+
+		</ul>
+		<form name="inputChatForm" id="inputChatForm">
+			<input type="text" id="inputChat" name="inputChat">
+			<button type="submit">보내기</button>
+		</form>
+	</div>
+</body>
+</html>
