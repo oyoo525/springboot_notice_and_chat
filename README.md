@@ -21,6 +21,36 @@ Java, Html, Javascript, JQuery, MySQL
 - day03 : 채팅방 구현
 
 
+### 구현화면
+|회원가입|로그인|
+|---|---|
+|![screencapture-localhost-8080-join-2024-03-19-16_09_36](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/fb55d444-b44d-44c4-9d6d-478026f09a58)|![screencapture-localhost-8080-login-2024-03-19-16_09_45](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/b49926ad-09bf-4f2e-a2fe-b13d5fe0b622)|
+
+|쪽지보내기|받은 쪽지함|
+|---|---|
+|![screencapture-localhost-8080-messageForm-2024-03-19-16_10_28](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/36f54b0e-67d0-418c-87a8-09ee1fc9460e)|![screencapture-localhost-8080-receivedMessage-2024-03-19-16_11_23](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/fb8eefa7-2e53-48ee-a8aa-8e3945174272)
+
+|게시글리스트(홈화면)|게시글작성|
+|---|---|
+|![screencapture-localhost-8080-2024-03-19-16_09_56](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/a7bc2635-fcd8-4e86-90d5-cc7385804a20)|![screencapture-localhost-8080-writeBoard-2024-03-19-16_10_08](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/c1c901fc-6867-4902-81c4-69f6b74d03f1)|
+
+|게시글 상세보기|채팅방 목록|
+|---|---|
+|![screencapture-localhost-8080-boardDetail-2024-03-19-16_10_19](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/bc93bbaa-76d3-43fc-85f5-be109820ed87)|![screencapture-localhost-8080-chatList-2024-03-19-16_11_32](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/c815069d-1ffb-41a3-9514-713839d87543)|
+
+|채팅방|
+|---|
+|![캡처](https://github.com/oyoo525/springboot_notice_and_chat/assets/141537487/b8c3823c-d407-4f09-84a0-5db88b9b06b2)|
+
+
+
+
+
+
+
+
+
+
 ### 느낀점
 - day01
   - 학원 수료 후 방황하면서 놓고 있었던 자바를 다시 시작했다. 2달동안 어떤걸 해야할지 갈피를 잡지 못했는데
