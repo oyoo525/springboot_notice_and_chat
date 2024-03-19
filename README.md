@@ -5,7 +5,7 @@
 ## 프로젝트 소개
 ### 프로젝트 목적
 - java에 대한 복습 및 springboot 숙련도 향상
-- CRUD기능 외에 Websocket 등으로 채팅 및 음성채팅 기능 훈련
+- CRUD기능 외에 Websocket 등으로 채팅 기능 훈련
 
 ### 개발환경
 - Windows 10
